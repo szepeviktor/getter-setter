@@ -11,6 +11,10 @@ use Foo\GetterSetter;
 
 AnnotationRegistry::registerLoader('class_exists');
 
+/**
+ * @method string getBar()
+ * @method self setBar(string $value)
+ */
 class MyCode
 {
     use GetterSetter;

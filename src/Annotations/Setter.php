@@ -10,5 +10,6 @@ namespace Foo\Annotations;
  */
 final class Setter
 {
+    /** @var string */
     public $visibility;
 }

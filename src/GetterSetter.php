@@ -14,6 +14,7 @@ trait GetterSetter
     /**
      * @link https://www.doctrine-project.org/projects/doctrine-annotations/en/latest/index.html
      *
+     * @param array<int, mixed> $arguments
      * @return mixed
      */
     public function __call(string $name, array $arguments)
@@ -70,6 +71,9 @@ trait GetterSetter
         }
     }
 
+    /**
+     * @param array<int, array> $callers
+     */
     protected function checkVisibility(array $callers, string $visibility): bool
     {
         $calledFromObject = array_key_exists(1, $callers) && array_key_exists('object', $callers[1]);
@@ -81,6 +85,7 @@ trait GetterSetter
             case 'protected':
                 return $calledFromObject && ($callers[1]['class'] === $thisClass || is_subclass_of($callers[1]['object'], $thisClass));
             case 'public':
+            default:
                 return true;
         }
     }
