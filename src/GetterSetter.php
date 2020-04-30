@@ -13,6 +13,8 @@ trait GetterSetter
 {
     /**
      * @link https://www.doctrine-project.org/projects/doctrine-annotations/en/latest/index.html
+     *
+     * @return mixed
      */
     public function __call(string $name, array $arguments)
     {
@@ -28,6 +30,7 @@ trait GetterSetter
             throw new \Exception('Property does not exist');
         }
 
+        $callers = debug_backtrace(\DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
         $reflectionClass = new ReflectionClass(get_class($this));
         $propertyReflection = $reflectionClass->getProperty($property);
         $reader = new AnnotationReader();
@@ -36,12 +39,14 @@ trait GetterSetter
             case 'get':
                 $getterAnnotation = $reader->getPropertyAnnotation($propertyReflection, Getter::class);
                 if (! $getterAnnotation instanceof Getter) {
-                    throw new \Exception('Method does not exist');
+                    throw new \BadMethodCallException('Method does not exist');
                 }
                 if (property_exists($getterAnnotation, 'visibility')) {
                     $visibility = $getterAnnotation->visibility;
                 }
-                // TODO Implement visibility constrains
+                if (! $this->checkVisibility($callers, $visibility)) {
+                    throw new \BadMethodCallException('Method does not exist');
+                }
 
                 return $this->{$property};
             case 'set':
@@ -52,8 +57,9 @@ trait GetterSetter
                 if (property_exists($setterAnnotation, 'visibility')) {
                     $visibility = $setterAnnotation->visibility;
                 }
-                // TODO Implement visibility constrains
-
+                if (! $this->checkVisibility($callers, $visibility)) {
+                    throw new \BadMethodCallException('Method does not exist');
+                }
                 if (! array_key_exists(0, $arguments)) {
                     throw new \Exception('Argument is missing for setter');
                 }
@@ -61,6 +67,21 @@ trait GetterSetter
                 $this->{$property} = $arguments[0];
 
                 return $this;
+        }
+    }
+
+    protected function checkVisibility(array $callers, string $visibility): bool
+    {
+        $calledFromObject = array_key_exists(1, $callers) && array_key_exists('object', $callers[1]);
+        $thisClass = get_class($this);
+
+        switch ($visibility) {
+            case 'private':
+                return $calledFromObject && $callers[1]['class'] === $thisClass;
+            case 'protected':
+                return $calledFromObject && ($callers[1]['class'] === $thisClass || is_subclass_of($callers[1]['object'], $thisClass));
+            case 'public':
+                return true;
         }
     }
 }

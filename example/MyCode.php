@@ -16,8 +16,8 @@ class MyCode
     use GetterSetter;
 
     /**
-     * @Getter(visibility="public")
-     * @Setter(visibility="protected")
+     * @Getter(visibility="private")
+     * @Setter(visibility="public")
      *
      * @var string
      */
