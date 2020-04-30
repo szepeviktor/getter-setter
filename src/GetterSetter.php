@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Foo;
+namespace SzepeViktor\GettersSetters;
 
-use Foo\Annotations\Getter;
-use Foo\Annotations\Setter;
+use SzepeViktor\GettersSetters\Annotations\Getter;
+use SzepeViktor\GettersSetters\Annotations\Setter;
 use Doctrine\Common\Annotations\AnnotationReader;
 use ReflectionClass;
 

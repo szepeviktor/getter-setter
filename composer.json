@@ -1,10 +1,20 @@
 {
+    "name": "szepeviktor/getters-setters",
+    "description": "",
+    "keywords": [
+        "tools",
+        "oop",
+        "getter",
+        "stter"
+    ],
+    "license": "MIT",
     "require": {
+        "php": "^7.1",
         "doctrine/annotations": "^1.10"
     },
     "autoload": {
         "psr-4": {
-            "Foo\\": "src/"
+            "SzepeViktor\\GettersSetters\\": "src/"
         }
     }
 }

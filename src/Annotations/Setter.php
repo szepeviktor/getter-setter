@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Foo\Annotations;
+namespace SzepeViktor\GettersSetters\Annotations;
 
 /**
  * @Annotation

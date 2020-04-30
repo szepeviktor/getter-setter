@@ -5,9 +5,9 @@ declare(strict_types=1);
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Foo\Annotations\Getter;
-use Foo\Annotations\Setter;
-use Foo\GetterSetter;
+use SzepeViktor\GettersSetters\Annotations\Getter;
+use SzepeViktor\GettersSetters\Annotations\Setter;
+use SzepeViktor\GettersSetters\GetterSetter;
 
 AnnotationRegistry::registerLoader('class_exists');
 
