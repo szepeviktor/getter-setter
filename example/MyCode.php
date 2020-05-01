@@ -2,14 +2,9 @@
 
 declare(strict_types=1);
 
-require dirname(__DIR__) . '/vendor/autoload.php';
-
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use SzepeViktor\GettersSetters\Annotations\Getter;
 use SzepeViktor\GettersSetters\Annotations\Setter;
 use SzepeViktor\GettersSetters\GetterSetter;
-
-AnnotationRegistry::registerLoader('class_exists');
 
 /**
  * @method string getBar()
@@ -35,5 +30,3 @@ class MyCode
         var_dump( $this->getBar() );
     }
 }
-
-new MyCode();

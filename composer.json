@@ -16,5 +16,11 @@
         "psr-4": {
             "SzepeViktor\\GettersSetters\\": "src/"
         }
+    },
+    "scripts": {
+        "phpstan": "phpstan analyze -l max -a example/MyCode.php src/ example/"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.19"
     }
 }
